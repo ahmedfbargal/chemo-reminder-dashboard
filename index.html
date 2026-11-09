@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An interactive appointment scheduling demo with fictional records.">
+<title>Chemo Reminder Board</title>
+<link rel="stylesheet" href="board.css">
+<script src="board.js" defer></script>
+</head>
+<body>
+<div class="shell">
+  <aside>
+    <a class="brand" href="#schedule"><span class="brand-icon" data-icon="heart"></span><span>CareBoard<small>APPOINTMENT WORKSPACE</small></span></a>
+    <nav aria-label="Workspace">
+      <p>WORKSPACE</p>
+      <a id="schedule-link" href="#schedule" aria-current="page"><span data-icon="calendar"></span>Schedule</a>
+      <a id="activity-link" href="#activity"><span data-icon="history"></span>Activity log</a>
+    </nav>
+    <div class="sidebar-note"><span class="dot"></span><div><strong>Demo workspace</strong><br>Fictional records only</div></div>
+  </aside>
+  <main>
+    <header class="top"><span>Workspace <span class="slash">/</span> <strong id="crumb">Schedule</strong></span><span class="preview"><span class="dot"></span> Fictional data · Demo</span></header>
+    <div class="content">
+      <section id="schedule" aria-labelledby="schedule-title">
+        <div class="intro"><div><p class="eyebrow">CHEMO REMINDER BOARD</p><h1 id="schedule-title">Treatment schedule</h1><p class="lede">See upcoming visits and update the schedule in one place.</p></div><button id="add" class="button primary"><span data-icon="plus"></span>Add appointment</button></div>
+        <div class="metrics" id="metrics" aria-label="Weekly summary"></div>
+        <section class="panel" aria-labelledby="board-title">
+          <div class="panel-head"><div><p class="eyebrow">WEEKLY BOARD</p><h2 id="board-title">Appointments</h2></div><div class="controls"><button class="button icon-button" id="previous" aria-label="Previous week"><span data-icon="left"></span></button><button class="button" id="today">Today</button><button class="button icon-button" id="next" aria-label="Next week"><span data-icon="right"></span></button></div></div>
+          <div class="calendar"><p id="period"></p><div class="days" id="days" aria-label="Filter by day"></div></div>
+          <div class="tools"><div class="selection" id="selection"></div><label class="search"><span data-icon="search"></span><input id="search" type="search" aria-label="Search appointments" placeholder="Search appointments"></label><select id="filter" aria-label="Filter by status"><option value="">All statuses</option><option>Scheduled</option><option>Rescheduled</option><option>Completed</option></select></div>
+          <div class="table-wrap"><table><thead><tr><th scope="col">Appointment</th><th scope="col">Date &amp; time</th><th scope="col">Status</th><th scope="col">Reminder preview</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead><tbody id="rows"></tbody></table></div>
+          <div id="empty" class="empty" hidden><strong>No appointments found</strong><p>Try another day or clear the filters.</p><button class="button" id="clear">Clear filters</button></div>
+        </section>
+        <p class="footer" id="footer">Changes are saved in this browser. Reminder times are for demonstration only.</p>
+      </section>
+      <section id="activity" aria-labelledby="activity-title" hidden>
+        <div class="intro"><div><p class="eyebrow">CHEMO REMINDER BOARD</p><h1 id="activity-title">Activity log</h1><p class="lede">Review changes made in this browser.</p></div></div>
+        <section class="panel" aria-label="Recent changes"><div class="panel-head activity-head"><div><p class="eyebrow">APPOINTMENT HISTORY</p><h2>Recent changes</h2></div></div><div id="history"></div></section>
+      </section>
+    </div>
+  </main>
+</div>
+<dialog id="editor" aria-labelledby="editor-title">
+  <form id="form">
+    <div class="dialog-head"><div><p class="eyebrow">APPOINTMENT</p><h2 id="editor-title">Add appointment</h2></div><button type="button" class="button icon-button" id="close" aria-label="Close"><span data-icon="close"></span></button></div>
+    <p class="form-note">Use fictional details in this demo.</p>
+    <label>Demo patient name<input name="patient" required maxlength="60" placeholder="Demo patient E"></label>
+    <label>Appointment type<input name="title" required maxlength="70" placeholder="Treatment visit"></label>
+    <div class="form-grid"><label>Date<input name="date" type="date" required></label><label>Time<input name="time" type="time" required></label></div>
+    <div class="form-grid"><label>Status<select name="status"><option>Scheduled</option><option>Rescheduled</option><option>Completed</option></select></label><label>Reminder preview<select name="reminder"><option value="1">1 day before</option><option value="2">2 days before</option><option value="0">No reminder</option></select></label></div>
+    <p class="form-note" id="hint"></p>
+    <div class="dialog-actions"><button type="button" class="button" id="complete" hidden>Mark complete</button><div class="controls"><button type="button" class="button" id="cancel">Cancel</button><button type="submit" class="button primary">Save appointment</button></div></div>
+  </form>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+</body>
+</html>
