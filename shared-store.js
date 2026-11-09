@@ -77,8 +77,8 @@
       saveSession(null);
       if (token) await request('/auth/v1/logout?scope=local',{},token).catch(() => {});
     },
-    load: () => rpc('chemo_dashboard_load',{}),
-    save: ({expectedRevision,state,writeId}) => rpc('chemo_dashboard_save',{
+    load: () => rpc('chemo_full_board_load',{}),
+    save: ({expectedRevision,state,writeId}) => rpc('chemo_full_board_save',{
       expected_revision:expectedRevision, board_state:state, write_id:writeId
     })
   };
